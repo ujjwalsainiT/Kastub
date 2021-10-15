@@ -13,7 +13,8 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 //for backend call
 import axios from "axios";
 import { getBaseUrl } from "../../utils";
-import { blankValidator } from "../../utils/Validation.jsx";
+import { blankValidator, emailValidator, showNotificationMsz } from "../../utils/Validation";
+import Loder from "../Loder/Loder.jsx"
 
 const LoginIn = (props) => {
     useEffect(() => {
@@ -22,13 +23,14 @@ const LoginIn = (props) => {
 
     //---------------------local state ----------------------
     const [showPassword, setshowPassword] = useState(false);
-
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
+    const [isloading, setisloading] = useState(false)
 
 
     //errors
     const [emailError, setemailError] = useState(false);
+    const [emailMatchError, setemailMatchError] = useState(false);
     const [passwordError, setpasswordError] = useState(false);
 
     const LoginUser = () => {
@@ -36,10 +38,15 @@ const LoginIn = (props) => {
             setemailError(true)
             return;
         }
+        if (!emailValidator(email)) {
+            setemailMatchError(true)
+            return;
+        }
         if (!blankValidator(password)) {
             setpasswordError(true)
             return;
         }
+        setisloading(true)
         let url = getBaseUrl() + "login";
         let temp = {
             email,
@@ -49,24 +56,28 @@ const LoginIn = (props) => {
             .post(url, temp)
             .then(
                 (res) => {
+                    setisloading(false)
                     console.log("data response:::", res)
                     if (res.data.success === 0) {
-                        alert(res.data.message)
+                        showNotificationMsz(res.data.message, "danger")
                         return
                     } else {
-                        alert(res.data.message);
+                        showNotificationMsz(res.data.message, "success")
                         console.log("id:::", res.data.id)
                         localStorage.setItem("UserId", res.data.id);
                         props.history.push("/user-details")
                     }
-
                 },
 
                 (error) => {
+                    setisloading(false)
+                    showNotificationMsz(`${error}`, "danger")
                     console.log("data response error:::", error)
                 }
             )
             .catch((e) => {
+                setisloading(false)
+                showNotificationMsz(`${e}`, "danger")
                 console.log("data response error:::", e)
             });
     }
@@ -93,6 +104,9 @@ const LoginIn = (props) => {
                             />
                             {emailError &&
                                 <span className="text-danger float-left">Enter The Email Address</span>
+                            }
+                            {emailMatchError &&
+                                <span className="text-danger float-left">Enter The Correct Email Address</span>
                             }
                         </div>
 
@@ -146,6 +160,8 @@ const LoginIn = (props) => {
                     <span className="Login_in" onClick={() => props.history.push("/forgot-password")}>forgot Password?</span>
                 </Card>
             </div>
+
+            <Loder loading={isloading} />
         </>
     );
 };
