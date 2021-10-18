@@ -7,6 +7,9 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 //css file 
 import "./Register.css";
 
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
 //for backend call
 import axios from "axios";
 import { getBaseUrl } from "../../utils";
@@ -93,7 +96,7 @@ const Register = (props) => {
         <>
             <div className="Register_Main_div content_padding">
                 <Card className="pt-2 pb-2 Card_shadow form_width mt-2">
-                    <p className="page_heading mt-3">Register</p>
+                    <p className="page_heading position-relative mt-3">Register</p>
                     <div className="main_padding_top_bottom">
                         <TextField
                             placeholder="Full Name"
@@ -123,25 +126,36 @@ const Register = (props) => {
                                 }}
                             />
                             {emailError && (
-                                <span className="text-danger float-left">Enter the Email Address</span>
+                                <span className="text-danger">Enter the Email Address</span>
                             )}
                             {emailMatchError && (
-                                <span className="text-danger float-left">Enter the Correct Email Address</span>
+                                <span className="text-danger">Enter the Correct Email Address</span>
                             )}
                         </div>
                         <div className="mt-2">
-                            <TextField
+                            {/* <TextField
                                 placeholder="Phone Number"
                                 id="outlined-basic"
                                 variant="outlined"
-                                autoComplete="off"
+                                floatingLabelText="mobileNumber"
+                                autoComplete="off"    
                                 value={phone}
                                 onChange={(e) => {
                                     setphoneError(false)
-                                    if (!NaN(e.target.value)) {
-                                        setphone("")
+                                    const re = /^[0-9\b]+$/;
+                                    if (e.target.value === '' || re.test(e.target.value)) {
+                                        setphone(e.target.value)
                                     }
-                                    setphone(e.target.value)
+                                }}
+                            /> */}
+
+                            <PhoneInput
+                                country={'in'}
+                                countryCodeEditable={false}
+                                value={phone}
+                                onChange={(e) => {
+                                    setphoneError(false)
+                                    setphone(e)
                                 }}
                             />
                             {phoneError && (

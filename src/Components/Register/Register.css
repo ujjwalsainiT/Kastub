@@ -37,6 +37,11 @@
   color: #ff5c00;
 }
 
+
+.MuiCard-root {
+   overflow: visible !important; 
+}
+
 @media only screen and (min-width: 320px) and (max-width: 600px) {
   .Register_Main_div {
     text-align: center !important;
