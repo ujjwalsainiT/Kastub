@@ -35,7 +35,7 @@ function EditProfile(props) {
         setemail(emailaddress)
         setphone(phonenumber)
 
-    }, [])
+    }, [full_name, emailaddress, phonenumber])
 
     const UploadImage = (e) => {
         try {
