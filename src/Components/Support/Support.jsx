@@ -27,7 +27,7 @@ function Support() {
     const [emailMatchError, setemailMatchError] = useState(false);
     const [subjectError, setsubjectError] = useState(false);
     const [messageError, setmessageError] = useState(false);
-    
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [])
@@ -94,7 +94,7 @@ function Support() {
                         <div className="input_heading">Name</div>
                         <input
                             type="text"
-                            class="form-control"
+                            class={`form-control ${nameError && "invalid"}`}
                             placeholder="Enter Name"
                             value={name}
                             onChange={(e) => {
@@ -110,7 +110,7 @@ function Support() {
 
                     <div className="mt-2">
                         <div className="input_heading">E-mail</div>
-                        <input type="email" class="form-control" placeholder="Enter email"
+                        <input type="email" class={`form-control ${(emailError || emailMatchError) && "invalid"}`} placeholder="Enter email"
                             value={email}
                             onChange={(e) => {
                                 setemailError(false)
@@ -129,7 +129,7 @@ function Support() {
 
                     <div className="mt-2">
                         <div className="input_heading">Subject</div>
-                        <input type="email" class="form-control" placeholder="Enter Subject"
+                        <input type="email" class={`form-control ${subjectError && "invalid"}`} placeholder="Enter Subject"
                             value={subject}
                             onChange={(e) => {
                                 setsubjectError(false)
@@ -143,7 +143,7 @@ function Support() {
 
                     <div className="mt-2">
                         <div className="input_heading">Message</div>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Message"
+                        <textarea class={`form-control ${messageError && "invalid"}`} id="exampleFormControlTextarea1" rows="3" placeholder="Message"
                             value={message}
                             onChange={(e) => {
                                 setmessageError(false)
