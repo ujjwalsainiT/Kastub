@@ -97,7 +97,7 @@ function ContactUs() {
                                         <div className="input_heading">Name</div>
                                         <input
                                             type="text"
-                                            class="form-control"
+                                            class={`form-control ${nameError && "invalid"}`}
                                             placeholder="Enter Name"
                                             value={name}
                                             onChange={(e) => {
@@ -114,7 +114,7 @@ function ContactUs() {
                                         <div className="input_heading">E-mail</div>
                                         <input
                                             type="email"
-                                            class="form-control"
+                                            class={`form-control ${(emailError || emailMatchError) && "invalid"}`}
                                             placeholder="Enter email"
                                             value={email}
                                             onChange={(e) => {
@@ -134,7 +134,7 @@ function ContactUs() {
                                     <div className="mt-2">
                                         <div className="input_heading">Message</div>
                                         <textarea
-                                            class="form-control"
+                                            class={`form-control ${messageError && "invalid"}`}
                                             rows="3"
                                             placeholder="Enter the Message"
                                             value={message}

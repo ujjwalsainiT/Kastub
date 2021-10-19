@@ -11,10 +11,6 @@
   width: 20%;
 }
 
-.invalid {
-  border: 1px solid red;
-}
-
 @media only screen and (min-width: 300px) and (max-width: 800px) {
   .support_input_feild_margin {
     margin-left: 3%;
