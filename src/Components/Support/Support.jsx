@@ -13,6 +13,8 @@ import { blankValidator, emailValidator, showNotificationMsz } from "../../utils
 import Loder from "../Loder/Loder.jsx"
 
 function Support() {
+
+    //local state
     const [name, setname] = useState("");
     const [email, setemail] = useState("");
     const [subject, setsubject] = useState("");
@@ -25,6 +27,7 @@ function Support() {
     const [emailMatchError, setemailMatchError] = useState(false);
     const [subjectError, setsubjectError] = useState(false);
     const [messageError, setmessageError] = useState(false);
+    
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [])

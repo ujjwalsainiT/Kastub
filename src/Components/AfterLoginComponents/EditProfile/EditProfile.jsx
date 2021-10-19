@@ -94,7 +94,7 @@ function EditProfile(props) {
                     </div>
 
                 </div>
-                <div><strong>Jhon Smith</strong></div>
+                <div><strong>{fullname}</strong></div>
                 <Card className="pt-2 pb-2 Card_shadow form_width mt-2">
                     <p className="page_heading text-center mt-3">Edit Account</p>
 

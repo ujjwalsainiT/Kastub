@@ -53,7 +53,9 @@ responsive to mobile view on various screen width as below */
   padding-top: 30px !important;
   padding-bottom: 25px !important;
 }
-
+.react-tel-input .country-list .country {
+  text-align: left !important;
+}
 .button_login_decoration {
   text-decoration: none !important;
   outline: none !important;
@@ -61,7 +63,6 @@ responsive to mobile view on various screen width as below */
 
 .leftside {
   width: 130px;
-
   height: auto !important;
   overflow: hidden !important;
   -ms-overflow-style: none;
@@ -85,6 +86,28 @@ responsive to mobile view on various screen width as below */
   font-size: 28px; /* Increased text to enable scrolling */
   padding: 0px 10px;
   overflow: scroll;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+  
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius:25px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }
 
 @media screen and (max-height: 450px) {

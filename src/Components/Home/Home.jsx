@@ -62,7 +62,6 @@ function Home() {
                         </Grid>
                     </Grid>
 
-
                     <Grid className="Component_main_grid mt-4 mb-2 p-3 ">
                         <Grid item md={6}>
                             <img src={d} alt="" className="home_Page_image" />
@@ -76,7 +75,6 @@ function Home() {
                             </div>
                         </Grid>
                     </Grid>
-
 
                     <Grid className="Component_main_grid mt-4 mb-2 p-3 ">
                         <Grid item md={6}>
@@ -95,7 +93,6 @@ function Home() {
                     <div className="mt-3 mb-2 text-center page_heading">Paint point description and our solution</div>
                     <div className="text-center">Lorem Ipsum is a fish text often used in print and web design. Lorem Ipsum has been
                         <br />the standard "fish" for Latin texts since the early 16th century.</div>
-
                     <div className="text-center mt-2 mb-3"><Button className="Home_page_button">Join us now</Button></div>
                 </div>
             </div>

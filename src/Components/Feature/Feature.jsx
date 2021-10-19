@@ -22,7 +22,6 @@ function Feature() {
                     <Grid item md={6}>
                         <div className="page_heading">Paint Point Description<br />and our solution</div>
                         <div>
-
                             <p className="home_paragraph_width">Lorem Ipsum is a fish text often used in print and web
                                 design. Lorem Ipsum has been the standard "fish" for
                                 Latin texts since the early 16th century.</p>

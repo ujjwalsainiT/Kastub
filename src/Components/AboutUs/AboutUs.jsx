@@ -9,9 +9,11 @@ import g from "./g.png";
 import "./AboutUs.css";
 
 function AboutUs() {
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [])
+    
     return (
         <>
             <div className="content_padding">

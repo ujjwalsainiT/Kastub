@@ -23,6 +23,7 @@ function AskedQuestion() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [])
+
     return (
         <>
             <div className="content_padding">
@@ -34,7 +35,6 @@ function AskedQuestion() {
                             className="pt-1 pb-1 Card_shadow mt-2"
                             key={index}
                         >
-
                             <div className="p-2">
                                 <span>
                                     {item.show === false ? (
@@ -71,7 +71,6 @@ function AskedQuestion() {
                                     {item.question}
                                 </span>
 
-
                                 <Expand open={item.show}>
                                     <div className="mt-3">
 
@@ -82,7 +81,6 @@ function AskedQuestion() {
                                     </div>
                                 </Expand>
                             </div>
-
                         </Card>
                     ))}
                 </div>

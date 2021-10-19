@@ -84,7 +84,6 @@ const LoginIn = (props) => {
 
     return (
         <>
-
             <div className="Register_Main_div content_padding">
                 <Card className="pt-2 pb-2 Card_shadow form_width mt-2">
                     <p className="page_heading mt-3">Login</p>
@@ -99,6 +98,7 @@ const LoginIn = (props) => {
                                 value={email}
                                 onChange={(e) => {
                                     setemailError(false)
+                                    setemailMatchError(false)
                                     setemail(e.target.value)
                                 }}
                             />

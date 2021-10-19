@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import HOC from "../../Common/HOC.jsx";
 //css file
 import "./Register.css";
@@ -6,13 +6,30 @@ import "./Register.css";
 //login,register,resetpassword uses material ui text-feild
 import { Button, Card, TextField } from "@material-ui/core";
 import { withRouter } from "react-router";
+import { blankValidator, emailValidator } from "../../utils/Validation.jsx";
 
 
 const ForgotPassword = (props) => {
+
+    const [email, setemail] = useState("");
+
+    //errors
+    const [emailError, setemailError] = useState(false)
+    const [emailMatchError, setemailMatchError] = useState(false)
+
+    const ResetPassword = () => {
+        if (!blankValidator(email)) {
+            setemailError(true)
+            return;
+        }
+        if (!emailValidator(email)) {
+            setemailMatchError(true)
+            return;
+        }
+    }
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [])
-
     return (
         <>
 
@@ -27,7 +44,19 @@ const ForgotPassword = (props) => {
                                 id="outlined-basic"
                                 variant="outlined"
                                 autoComplete="off"
+                                value={email}
+                                onChange={(e) => {
+                                    setemailError(false);
+                                    setemailMatchError(false);
+                                    setemail(e.target.value)
+                                }}
                             />
+                            {emailError && (
+                                <span className="text-danger float-left mt-1 mb-1">Enter the Email Address</span>
+                            )}
+                            {emailMatchError && (
+                                <span className="text-danger float-left mt-1 mb-1">Enter the Correct Email Address</span>
+                            )}
                         </div>
 
 
@@ -35,6 +64,7 @@ const ForgotPassword = (props) => {
                             <Button
                                 variant="contained"
                                 className="Home_page_button login_register_width"
+                                onClick={ResetPassword}
                             >
                                 Reset
                             </Button>
