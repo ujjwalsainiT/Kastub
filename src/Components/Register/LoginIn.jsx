@@ -34,52 +34,54 @@ const LoginIn = (props) => {
     const [passwordError, setpasswordError] = useState(false);
 
     const LoginUser = () => {
-        if (!blankValidator(email)) {
-            setemailError(true)
-            return;
-        }
-        if (!emailValidator(email)) {
-            setemailMatchError(true)
-            return;
-        }
-        if (!blankValidator(password)) {
-            setpasswordError(true)
-            return;
-        }
-        setisloading(true)
-        let url = getBaseUrl() + "login";
-        let temp = {
-            email,
-            password
-        };
-        axios
-            .post(url, temp)
-            .then(
-                (res) => {
-                    setisloading(false)
-                    console.log("data response:::", res)
-                    if (res.data.success === 0) {
-                        showNotificationMsz(res.data.message, "danger")
-                        return
-                    } else {
-                        showNotificationMsz(res.data.message, "success")
-                        console.log("id:::", res.data.id)
-                        localStorage.setItem("UserId", res.data.id);
-                        props.history.push("/user-details")
-                    }
-                },
 
-                (error) => {
-                    setisloading(false)
-                    showNotificationMsz(`${error}`, "danger")
-                    console.log("data response error:::", error)
-                }
-            )
-            .catch((e) => {
-                setisloading(false)
-                showNotificationMsz(`${e}`, "danger")
-                console.log("data response error:::", e)
-            });
+        props.history.push("/user-details")
+        // if (!blankValidator(email)) {
+        //     setemailError(true)
+        //     return;
+        // }
+        // if (!emailValidator(email)) {
+        //     setemailMatchError(true)
+        //     return;
+        // }
+        // if (!blankValidator(password)) {
+        //     setpasswordError(true)
+        //     return;
+        // }
+        // setisloading(true)
+        // let url = getBaseUrl() + "login";
+        // let temp = {
+        //     email,
+        //     password
+        // };
+        // axios
+        //     .post(url, temp)
+        //     .then(
+        //         (res) => {
+        //             setisloading(false)
+        //             console.log("data response:::", res)
+        //             if (res.data.success === 0) {
+        //                 showNotificationMsz(res.data.message, "danger")
+        //                 return
+        //             } else {
+        //                 showNotificationMsz(res.data.message, "success")
+        //                 console.log("id:::", res.data.id)
+        //                 localStorage.setItem("UserId", res.data.id);
+        //                 props.history.push("/user-details")
+        //             }
+        //         },
+
+        //         (error) => {
+        //             setisloading(false)
+        //             showNotificationMsz(`${error}`, "danger")
+        //             console.log("data response error:::", error)
+        //         }
+        //     )
+        //     .catch((e) => {
+        //         setisloading(false)
+        //         showNotificationMsz(`${e}`, "danger")
+        //         console.log("data response error:::", e)
+        //     });
     }
 
     return (
