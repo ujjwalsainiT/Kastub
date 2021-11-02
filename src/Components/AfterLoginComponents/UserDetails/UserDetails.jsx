@@ -58,7 +58,7 @@ function UserDetails(props) {
                             </div>
 
                             {!addMangeopen ? (
-                                <div className="mt-2 mb-2 hover_cursor" onClick={() => setaddMangeopen(!addMangeopen)}><i className="fa fa-plus mr-1" />Add New Property</div>
+                                <div className="mt-2 mb-2"><span className="hover_cursor" onClick={() => setaddMangeopen(!addMangeopen)}><i className="fa fa-plus mr-1" />Add New Property</span></div>
                             ) : (
                                 <Expand open={addMangeopen}>
                                     <Card className=" mb-2 Card_shadow">
