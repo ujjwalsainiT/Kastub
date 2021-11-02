@@ -15,10 +15,21 @@ import EditProfile from "./Components/AfterLoginComponents/EditProfile/EditProfi
 import UserDataTabs from "./Components/AfterLoginComponents/UserDataTabs/UserDataTabs";
 import PropertiesDetail from "./Components/AfterLoginComponents/UserProperties/PropertiesDetail";
 import ForgotPassword from "./Components/Register/ForgotPassword";
+import Message from "./Components/Backadmin/Message/Message"
+
+
+
+//Admin Pannel
+import AdminLogin from "./Components/Backadmin/AdminLogin/AdminLogin";
 
 //for notification
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
+import AdminHome from "./Components/Backadmin/AdminHome/AdminHome";
+import Adminfirst from "./Components/Backadmin/Adminfirst/Adminfirst";
+import ClientDetails from "./Components/Backadmin/client/ClientDetails";
+
+
 
 function App() {
   return (
@@ -39,7 +50,13 @@ function App() {
          <Route exact path="/edit-profile" component={EditProfile}/>
          <Route exact path="/user-data" component={UserDataTabs}/>
          <Route exact path="/property-detail" component={PropertiesDetail}/>
-         <Route exact path="/forgot-password" component={ForgotPassword}/>    
+         <Route exact path="/forgot-password" component={ForgotPassword}/> 
+         <Route exact path="/backadmin" component={AdminLogin}/>  
+         <Route exact path="/adminHome" component={AdminHome}/>  
+         <Route exact path="/message" component={Message}/> 
+         <Route exact path="/first" component={Adminfirst}/>  
+         <Route exact path="/client" component={ClientDetails}/>    
+
          <Redirect to="/" />
       </Switch>
     </>
