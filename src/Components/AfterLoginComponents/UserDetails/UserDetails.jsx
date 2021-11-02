@@ -1,9 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import HOC1 from "../../../Common/HOC1";
-import { Grid } from '@material-ui/core';
+import { Grid, Card, Button } from '@material-ui/core';
 import "./UserDetails.css";
+import Expand from "react-expand-animated";
 
 function UserDetails(props) {
+
+    //local state
+    const [addMangeopen, setaddMangeopen] = useState(false);
+
     const recentsMail = [{ name: "Jhon Smith", content: "often used in print and web design" },
     { name: "Jhon Smith", content: "often used in print and web design" },
     { name: "Jhon Smith", content: "often used in print and web design" },
@@ -47,7 +52,63 @@ function UserDetails(props) {
 
                 <Grid className="Component_main_grid mt-4 mb-2 p-3 ">
                     <Grid item md={8}>
-                        <div className="page_heading">Properties Overview</div>
+                        <div >
+                            <div className="page_heading">
+                                Properties Overview
+                            </div>
+
+                            {!addMangeopen ? (
+                                <div className="mt-2 mb-2 hover_cursor" onClick={() => setaddMangeopen(!addMangeopen)}><i className="fa fa-plus mr-1" />Add New Property</div>
+                            ) : (
+                                <Expand open={addMangeopen}>
+                                    <Card className=" mb-2 Card_shadow">
+                                        <div className="card_admissiondetails_height">
+                                            <div className="textfiled_margin">
+                                                <div className="card_content_instition">
+                                                    <div className="text-right">
+                                                        <span className="icon_color hover_cursor">
+                                                            <i className="fa fa-times cursor" onClick={() => setaddMangeopen(!addMangeopen)}></i>
+                                                        </span>
+                                                    </div>
+                                                    <div className="text_filed_heading">
+                                                        Address
+                                                    </div>
+                                                    <div className=" mt-1">
+                                                        <input
+                                                            type="text"
+                                                            className="form-control "
+                                                            placeholder="Enter Address"
+                                                            autoComplete="off"
+                                                        />
+                                                    </div>
+                                                    <div className="text_filed_heading">
+                                                        Balance
+                                                    </div>
+                                                    <div className=" mt-1">
+                                                        <input
+                                                            type="text"
+                                                            className="form-control "
+                                                            placeholder="Enter Balanace"
+                                                            autoComplete="off"
+                                                        />
+                                                    </div>
+
+                                                </div>
+                                                <div className="mt-2 pb-2 ">
+                                                    <Button
+                                                        variant="contained"
+                                                        className="button_formatting"
+
+                                                    >
+                                                        Create
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Card>
+                                </Expand>
+                            )}
+                        </div>
                         <table className="table">
                             <thead>
                                 <tr>

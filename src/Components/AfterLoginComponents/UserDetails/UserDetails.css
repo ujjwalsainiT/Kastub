@@ -16,3 +16,14 @@
 .red_color {
   color: red;
 }
+.textfiled_margin {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+.button_formatting {
+  background-color: #0070bb !important;
+  text-transform: capitalize !important;
+  color: white !important;
+  text-decoration: none !important;
+  outline: none !important;
+}
