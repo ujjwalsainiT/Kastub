@@ -14,22 +14,30 @@ import AdminLogin from "../AdminLogin/AdminLogin";
 import AdminHOC from "../../../Common/AdminHOC";
 
 const AdminHome = () => {
+  var retrievedData = localStorage.getItem("dataarr");
+  console.log("data recevuied::::", retrievedData);
+
   const [open, setOpen] = React.useState(false);
   const [editaddress, seteditaddress] = useState("");
   const [editbalance, seteditbalance] = useState("");
+  const [index, setindex] = useState("");
+
+  //addd data in table
+  const [address, setaddress] = useState("");
+  const [balance, setbalance] = useState("");
+
   const [updtes, setupdates] = useState([
     { address: "115 Northampton Rd. 1", balance: "$270" },
     { address: "115  Rd. 1", balance: "$150" },
     { address: "115 Northampton Rd. 1", balance: "$270" },
     { address: "115 Northampton Rd. 1", balance: "$270" },
     { address: "115 Northampton Rd. 1", balance: "$270" },
-    { address: "115 Northampton Rd. 1", balance: "$270" },
-    { address: "115 Northampton Rd. 1", balance: "$270" },
   ]);
 
-  const handleClickOpen = (item) => {
+  const handleClickOpen = (item, index) => {
     seteditaddress(item.address);
     seteditbalance(item.balance);
+    setindex(index);
     setOpen(true);
   };
 
@@ -43,32 +51,48 @@ const AdminHome = () => {
           <div className="container">
             <h3>Add Properties</h3>
             <Card>
-              <form className="p-2">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Address</label>
-                  <input
-                    type="Update"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Address"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Balance</label>
-                  <input
-                    type="Message"
-                    class="form-control"
-                    id="exampleInputPassword1"
-                    placeholder="Balance"
-                  />
-                </div>
-                <span className="feature_add_btn">
-                  <button type="submit " className="btn btn-primary ">
-                    Submit
-                  </button>
-                </span>
-              </form>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Address</label>
+                <input
+                  type="Update"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  placeholder="Address"
+                  value={address}
+                  onChange={(e) => {
+                    setaddress(e.target.value);
+                  }}
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Balance</label>
+                <input
+                  type="Message"
+                  class="form-control"
+                  id="exampleInputPassword1"
+                  placeholder="Balance"
+                  value={balance}
+                  onChange={(e) => {
+                    setbalance(e.target.value);
+                  }}
+                />
+              </div>
+              <span className="feature_add_btn">
+                <button
+                  type="submit "
+                  className="btn btn-primary "
+                  onClick={() => {
+                    updtes.push({
+                      address: address,
+                      balance: balance,
+                    });
+                    setupdates([...updtes]);
+                  }}
+                >
+                  Submit
+                </button>
+              </span>
             </Card>
 
             <div className="mt-5">
@@ -99,7 +123,7 @@ const AdminHome = () => {
                       <span className="pr-3">
                         <i
                           class="fa fa-edit"
-                          onClick={() => handleClickOpen(item)}
+                          onClick={() => handleClickOpen(item, index)}
                         ></i>
                       </span>
 
@@ -134,43 +158,44 @@ const AdminHome = () => {
           <h3>Data Update</h3>
         </DialogTitle>
         <DialogContent>
-          <form className="p-2">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Address</label>
-              <input
-                type="Update"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder="Address"
-                value={editaddress}
-                onChange={(e) => seteditaddress(e.target.value)}
-              />
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Balance</label>
-              <input
-                type="Message"
-                class="form-control"
-                id="exampleInputPassword1"
-                placeholder="Balance"
-                value={editbalance}
-                onChange={(e) => seteditbalance(e.target.value)}
-              />
-            </div>
-            <span className="feature_add_btn">
-              <button type="submit " className="btn btn-primary ">
-                Update
-              </button>
-            </span>
-          </form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Address</label>
+            <input
+              type="Update"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Address"
+              value={editaddress}
+              onChange={(e) => seteditaddress(e.target.value)}
+            />
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Balance</label>
+            <input
+              type="Message"
+              class="form-control"
+              id="exampleInputPassword1"
+              placeholder="Balance"
+              value={editbalance}
+              onChange={(e) => seteditbalance(e.target.value)}
+            />
+          </div>
+          <span className="feature_add_btn">
+            <button
+              type="submit "
+              className="btn btn-primary "
+              onClick={() => {
+                updtes[index].address = editaddress;
+                updtes[index].balance = editbalance;
+                setupdates([...updtes]);
+                setOpen(false);
+              }}
+            >
+              Update
+            </button>
+          </span>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );

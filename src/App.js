@@ -17,6 +17,7 @@ import PropertiesDetail from "./Components/AfterLoginComponents/UserProperties/P
 import ForgotPassword from "./Components/Register/ForgotPassword";
 import Message from "./Components/Backadmin/Message/Message";
 
+
 //Admin Pannel
 import AdminLogin from "./Components/Backadmin/AdminLogin/AdminLogin";
 
@@ -27,6 +28,7 @@ import AdminHome from "./Components/Backadmin/AdminHome/AdminHome";
 import Adminfirst from "./Components/Backadmin/Adminfirst/Adminfirst";
 import ClientDetails from "./Components/Backadmin/client/ClientDetails";
 import ComposeEmail from "./Components/AfterLoginComponents/ComposeEmail/ComposeEmail";
+import Financials from "./Components/Backadmin/Financials/Financials";
 
 function App() {
   return (
@@ -52,12 +54,14 @@ function App() {
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route exact path="/compose-email" component={ComposeEmail} />
 
+
         {/* Admin Pages*/}
         <Route exact path="/backadmin" component={AdminLogin} />
         <Route exact path="/adminHome" component={AdminHome} />
         <Route exact path="/message" component={Message} />
         <Route exact path="/first" component={Adminfirst} />
         <Route exact path="/client" component={ClientDetails} />
+        <Route exact path="/financials" component={Financials} />
 
         <Redirect to="/" />
       </Switch>

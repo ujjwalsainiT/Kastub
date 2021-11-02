@@ -1,5 +1,5 @@
 import React from "react";
-import AdminHOC from "../../../Common/AdminHOC";
+
 import {
   Button,
   Card,

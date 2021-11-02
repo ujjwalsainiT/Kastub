@@ -39,7 +39,13 @@ const Adminfirst = (props) => {
               <Card className="Card_shadow m-3">
                 <div className="box_home">
                   <h6 className="add_message pl-2 pt-4">
-                    <span className="add_btn">+</span> Add Message
+                    <span
+                      className="add_btn"
+                      onClick={() => props.history.push("/financials")}
+                    >
+                      +
+                    </span>{" "}
+                    Financials Details Add
                   </h6>
                 </div>
               </Card>
