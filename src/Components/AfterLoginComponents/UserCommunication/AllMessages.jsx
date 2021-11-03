@@ -112,6 +112,10 @@ function AllMessages(props) {
                 <Grid item md={6}></Grid>
 
             </Grid>
+
+            <div className="mt-2 mb-2">
+                <span className="hover_cursor" onClick={() => props.history.push("/compose-email")}><i className="fa fa-arrow-right mr-1" />Send Email</span>
+            </div>
             {!messagedetail ? (
                 <div className="table_foramtitng mt-1 mb-2">
 

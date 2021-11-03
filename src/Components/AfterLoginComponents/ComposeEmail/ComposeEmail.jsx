@@ -1,8 +1,11 @@
-import React from 'react'
-import { Grid, Card, Button } from '@material-ui/core';
+import React, { useEffect } from 'react'
+import { Card, Button } from '@material-ui/core';
 import HOC1 from "../../../Common/HOC1";
 
 function ComposeEmail() {
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     return (
         <>
             <div className="content_padding">
@@ -69,4 +72,4 @@ function ComposeEmail() {
     )
 }
 
-export default HOC1(ComposeEmail) 
+export default HOC1(ComposeEmail)
