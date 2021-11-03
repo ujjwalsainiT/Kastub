@@ -149,6 +149,7 @@ function UserDetails(props) {
                     <Grid item md={1}></Grid>
                     <Grid item md={3}>
                         <div className="page_heading">Recents Mails</div>
+                        <div className="mt-2 mb-2"><span className="hover_cursor" onClick={() => props.history.push("/compose-email")}><i className="fa fa-arrow-right mr-1" />Send Email</span></div>
                         {recentsMail.map((item, index) => (
                             <div>
                                 <div className="mt-3 d-flex justify-content-between">
