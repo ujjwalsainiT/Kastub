@@ -1,5 +1,5 @@
 const getBaseUrl = () => {
-  return "http://192.168.2.8:5000/";
+  return "https://fathomless-taiga-94619.herokuapp.com/";
 
 };
 export { getBaseUrl };

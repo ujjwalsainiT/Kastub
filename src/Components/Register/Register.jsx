@@ -60,9 +60,9 @@ const Register = (props) => {
             setisloading(true)
             let url = getBaseUrl() + "register";
             let temp = {
-                fullname,
+                full_name: fullname,
                 email,
-                phone,
+                phonno: phone,
                 password
             };
             axios
@@ -71,8 +71,8 @@ const Register = (props) => {
                     (res) => {
                         console.log("data response:::", res)
                         setisloading(false)
-                        showNotificationMsz(res.data.message, "success")
-                        props.history.push("/user-details")
+                        showNotificationMsz(res.data.msg, "success")
+                        //props.history.push("/user-details")
                     },
 
                     (error) => {
