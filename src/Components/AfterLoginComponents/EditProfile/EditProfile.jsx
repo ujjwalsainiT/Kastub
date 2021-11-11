@@ -6,60 +6,107 @@ import { Button, Card } from '@material-ui/core';
 import { TextField, IconButton, OutlinedInput, InputAdornment, FormControl } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
 //Css file
 import "./EditProfile.css";
 
-//for backend
+//for backend call
 import axios from "axios";
 import { getBaseUrl } from "../../../utils";
+import { blankValidator, emailValidator, showNotificationMsz } from "../../../utils/Validation";
+import Loder from "../../Loder/Loder.jsx"
+
 
 function EditProfile(props) {
 
-    console.log("user data:::::::", props)
-
-    let full_name = props.location.state.UserName;
-    let emailaddress = props.location.state.email;
-    let phonenumber = props.location.state.phone;
+    //user details
+    // let full_name = props.location.state.UserName;
+    // let emailaddress = props.location.state.email;
+    // let phonenumber = props.location.state.phone;
     let id = props.location.state.userid;
 
     //---------------------local state ----------------------
-    const [showPassword, setshowPassword] = useState(false);
-    const [imageurl, setimageurl] = useState("https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png");
+    const [showimage, setshowimage] = useState("https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png")
+    const [imageurl, setimageurl] = useState("");
     const [fullname, setfullname] = useState("");
     const [email, setemail] = useState("");
     const [phone, setphone] = useState("")
+    const [isloading, setisloading] = useState(false)
+    const [isUpdated, setisUpdated] = useState(false)
+
+
+
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        setfullname(full_name)
-        setemail(emailaddress)
-        setphone(phonenumber)
+        const getUserData = () => {
+            try {
+                if (!blankValidator(id)) {
+                    return;
+                }
+                let url = getBaseUrl() + `getUserDetail/${id}`
+                axios.get(url).then(
+                    (response) => {
+                        if (!blankValidator(response)) {
+                            return;
+                        } else {
+                            response.data.response.map(
+                                (data) => {
+                                    setfullname(data.full_name);
+                                    setemail(data.email);
+                                    setphone(data.phonno)
+                                    if (data.image !== null) {
+                                        setshowimage(data.image)
+                                    }
+                                }
+                            );
 
-    }, [full_name, emailaddress, phonenumber])
-
-    const UploadImage = (e) => {
-        try {
-            console.log("file:::", e.target.files[0])
-            const file = e.target.files[0];
-            let url = getBaseUrl() + "upload";
-            let fileData = new FormData();
-            fileData.append("file", file);
-            console.log("fdfh", fileData.append("file", file))
-            console.log("File Data:::", fileData)
-            axios
-                .post(url, file, {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
+                            console.log("user detail::::", response.data.response)
+                        }
                     },
-                })
-                .then((response) => {
-                    console.log("image res:::", response)
-                })
-                .catch((error) => {
-                    console.log("catch and try error", error);
-                });
+                    (error) => { console.log(error) }
+                );
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getUserData();
+    }, [isUpdated, id])
+
+    const updateProfile = () => {
+        try {
+            setisloading(true)
+            let url = getBaseUrl() + `updateProfile/${id}`;
+            let fileData = new FormData();
+            fileData.append("full_name", fullname);
+            fileData.append("email", email);
+            fileData.append("phonno", phone);
+            if (imageurl) {
+                fileData.append('myField', imageurl)
+            } else
+                fileData.append('currentImage', showimage)
+
+            axios
+                .post(url, fileData)
+                .then(
+                    (res) => {
+                        console.log("data response:::", res)
+                        setisloading(false)
+                        showNotificationMsz(res.data.msg, "success")
+                        setimageurl("")
+                        setisUpdated(!isUpdated)
+                    },
+
+                    (error) => {
+                        setisloading(false)
+                        showNotificationMsz(error, "danger")
+                    }
+                )
         } catch (error) {
-            console.log("catch and try error", error);
+            setisloading(false)
+            showNotificationMsz(error, "danger")
         }
     }
     return (
@@ -68,7 +115,7 @@ function EditProfile(props) {
                 <div className="mx-auto">
                     <div>
                         <img
-                            src={imageurl}
+                            src={!blankValidator(imageurl) ? `https://fathomless-taiga-94619.herokuapp.com/public/images/${showimage}` : showimage}
                             alt=""
                             id="img"
                             className="profile_Edit"
@@ -81,7 +128,8 @@ function EditProfile(props) {
                             name="image-upload"
                             id="input"
                             onChange={(e) => {
-                                UploadImage(e)
+                                setimageurl(e.target.files[0])
+                                setshowimage(URL.createObjectURL(e.target.files[0]))
                             }}
                         />
                         <div className="">
@@ -123,46 +171,26 @@ function EditProfile(props) {
                             />
                         </div>
                         <div className="mt-2">
-                            <TextField
-                                placeholder="Phone Number"
-                                id="outlined-basic"
-                                variant="outlined"
-                                autoComplete="off"
+                            <PhoneInput
+                                country={'in'}
+                                countryCodeEditable={false}
                                 value={phone}
                                 onChange={(e) => {
-                                    setphone(e.target.value)
+
+                                    setphone(e)
                                 }}
                             />
-                        </div>
-                        <div className="mt-2">
-                            <FormControl className="MuiFormControl-fullWidth" variant="outlined">
-                                <OutlinedInput
-                                    id="outlined-adornment-password"
-                                    placeholder="Password"
-                                    type={showPassword ? "text" : "password"}
-                                    autoComplete="off"
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={() => setshowPassword(!showPassword)}
-                                                onMouseDown={(event) => event.preventDefault()}
-                                            >
-                                                {showPassword ? <Visibility /> : <VisibilityOff />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                />
-                            </FormControl>
+
                         </div>
 
-                        <div className="mt-4 mb-3"><Button className="Home_page_button login_register_width">Save</Button></div>
+                        <div className="mt-4 mb-3"><Button className="Home_page_button login_register_width" onClick={updateProfile}>Save</Button></div>
 
                     </div>
                 </Card>
-
-
             </div>
+
+
+            <Loder loading={isloading} />
         </>
     )
 }

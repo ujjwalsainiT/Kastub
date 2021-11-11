@@ -15,8 +15,6 @@ import { blankValidator } from '../../utils/Validation';
 
 const HeaderAfterLogin = (props) => {
 
-    console.log("user ID:::", localStorage.getItem("UserId"))
-
     // user id
     let userid = localStorage.getItem("UserId")
 
@@ -50,10 +48,15 @@ const HeaderAfterLogin = (props) => {
                         if (!blankValidator(response)) {
                             return;
                         } else {
-                            // setUserName(response.data.fullname);
-                            // setemail(response.data.email);
-                            // setphone(response.data.phone)
-                            console.log("user detail::::", response)
+                            response.data.response.map(
+                                (data) => {
+                                    setUserName(data.full_name);
+                                    setemail(data.email);
+                                    setphone(data.phonno)
+                                }
+                            );
+
+                            console.log("user detail::::", response.data.response)
                         }
                     },
                     (error) => { console.log(error) }
@@ -65,10 +68,7 @@ const HeaderAfterLogin = (props) => {
         getUserData();
     }, [userid])
 
-    const Log_Out = () => {
-        localStorage.clear();
-        props.history.push("/home")
-    }
+
     return (
         <div className="topheader">
             <AppBar position="fixed" className="MainHeader">
@@ -100,7 +100,10 @@ const HeaderAfterLogin = (props) => {
                                         userid
                                     })}>Edit Profile</div>
                                     <hr />
-                                    <div className="Login_in" onClick={Log_Out}>Log out</div>
+                                    <div className="Login_in" onClick={() => {
+                                        localStorage.clear();
+                                        window.location.href = "/home"
+                                    }}>Log out</div>
                                 </div>
                             </div></span>
                     </div>
@@ -156,14 +159,14 @@ const HeaderAfterLogin = (props) => {
                             })}>
                                 Edit Profile
                             </span>
-                            <span className="logout_Pointer_cursor" onClick={Log_Out}>
+                            <span className="logout_Pointer_cursor">
                                 Log Out
                             </span>
                         </div>
                     </div>
-                </Toolbar>
-            </AppBar>
-        </div>
+                </Toolbar >
+            </AppBar >
+        </div >
     )
 }
 

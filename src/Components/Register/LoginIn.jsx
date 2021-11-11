@@ -57,21 +57,23 @@ const LoginIn = (props) => {
             .then(
                 (res) => {
                     setisloading(false)
-                    console.log("data response:::", res)
-                    showNotificationMsz(res.data.msg, "success")
-                    props.history.push("/user-details")
-                    localStorage.setItem("UserId", res.data.data._id);
+                    // console.log("data response:::", res)
+                    // showNotificationMsz(res.data.msg, "success")
+                    // props.history.push("/user-details")
+                    // console.log("id:::", res.data.data._id)
+                    // localStorage.setItem("UserId", res.data.data._id);
 
 
-                    // if (res.data.success === 0) {
-                    //     showNotificationMsz(res.data.message, "danger")
-                    //     return
-                    // } else {
-                    //     showNotificationMsz(res.data.message, "success")
-                    //     console.log("id:::", res.data.id)
-                    //     localStorage.setItem("UserId", res.data.id);
-                    //     props.history.push("/user-details")
-                    // }
+                    if (res.data.data.successCode === 0) {
+                        showNotificationMsz(res.data.msg, "success")
+                        console.log("id:::", res.data.data._id)
+                        localStorage.setItem("UserId", res.data.data._id);
+                        props.history.push("/user-details")
+
+                    } else {
+                        showNotificationMsz(res.data.msg, "danger")
+                        return
+                    }
                 },
 
                 (error) => {
