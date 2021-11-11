@@ -44,7 +44,7 @@ function ContactUs() {
                 return;
             }
             setisloading(true)
-            let url = getBaseUrl() + "contact";
+            let url = getBaseUrl() + "addContact";
             let temp = {
                 name,
                 email,
@@ -55,7 +55,7 @@ function ContactUs() {
                 .then(
                     (res) => {
                         setisloading(false)
-                        showNotificationMsz(res.data.message, "success")
+                        showNotificationMsz(res.data.msg, "success")
                         setname("");
                         setemail("");
                         setmessage("");

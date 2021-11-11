@@ -44,15 +44,15 @@ const HeaderAfterLogin = (props) => {
                 if (!blankValidator(userid)) {
                     return;
                 }
-                let url = getBaseUrl() + "login?id=" + userid
+                let url = getBaseUrl() + `getUserDetail/${userid}`
                 axios.get(url).then(
                     (response) => {
                         if (!blankValidator(response)) {
                             return;
                         } else {
-                            setUserName(response.data.fullname);
-                            setemail(response.data.email);
-                            setphone(response.data.phone)
+                            // setUserName(response.data.fullname);
+                            // setemail(response.data.email);
+                            // setphone(response.data.phone)
                             console.log("user detail::::", response)
                         }
                     },
