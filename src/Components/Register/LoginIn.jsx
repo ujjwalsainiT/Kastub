@@ -57,13 +57,6 @@ const LoginIn = (props) => {
             .then(
                 (res) => {
                     setisloading(false)
-                    // console.log("data response:::", res)
-                    // showNotificationMsz(res.data.msg, "success")
-                    // props.history.push("/user-details")
-                    // console.log("id:::", res.data.data._id)
-                    // localStorage.setItem("UserId", res.data.data._id);
-
-
                     if (res.data.data.successCode === 0) {
                         showNotificationMsz(res.data.msg, "success")
                         console.log("id:::", res.data.data._id)
@@ -78,13 +71,13 @@ const LoginIn = (props) => {
 
                 (error) => {
                     setisloading(false)
-                    showNotificationMsz(`${error}`, "danger")
+                    showNotificationMsz(error, "danger")
                     console.log("data response error:::", error)
                 }
             )
             .catch((e) => {
                 setisloading(false)
-                showNotificationMsz(`${e}`, "danger")
+                showNotificationMsz(e, "danger")
                 console.log("data response error:::", e)
             });
     }

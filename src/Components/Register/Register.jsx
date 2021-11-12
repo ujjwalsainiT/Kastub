@@ -57,7 +57,7 @@ const Register = (props) => {
                 setpasswordError(true);
                 return;
             }
-            if (password.length >= 6) {
+            if (password.length !== 6) {
                 setpasswordLengthError(true);
                 return;
             }
@@ -91,7 +91,7 @@ const Register = (props) => {
                         setisloading(false)
                         showNotificationMsz(error, "danger")
                     }
-                )
+              )
         } catch (error) {
             setisloading(false)
             showNotificationMsz(error, "danger")
@@ -181,6 +181,7 @@ const Register = (props) => {
                                     placeholder="Password"
                                     value={password}
                                     onChange={(e) => {
+                                        setpasswordLengthError(false)
                                         setpasswordError(false)
                                         setpassword(e.target.value)
                                     }}
@@ -204,7 +205,7 @@ const Register = (props) => {
                                 <span className="text-danger float-left">Enter the Password</span>
                             )}
                             {passwordLengthError && (
-                                <span className="text-danger float-left">Password minimum 6 digits</span>
+                                <span className="text-danger float-left">Password length must be exactly 6 digits</span>
                             )}
                         </div>
 

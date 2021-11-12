@@ -8,7 +8,11 @@ import { Button, Card, TextField, IconButton, OutlinedInput, InputAdornment, For
 import { withRouter } from "react-router";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 
-
+//for backend call
+import axios from "axios";
+import { getBaseUrl } from "../../utils";
+import { blankValidator, showNotificationMsz } from "../../utils/Validation";
+import Loder from "../Loder/Loder.jsx"
 
 const ForgotPassword = (props) => {
     console.log("email::::", props)
@@ -18,9 +22,26 @@ const ForgotPassword = (props) => {
     const [showPassword, setshowPassword] = useState(false);
     const [otp, setotp] = useState("")
     const [password, setpassword] = useState("")
-    
-    const ResetPassword = () => {
+    const [isloading, setisloading] = useState(false)
 
+    //error
+    const [otpError, setotpError] = useState(false)
+    const [passwordError, setpasswordError] = useState(false)
+    const [passwordlengthError, setpasswordlengthError] = useState(false)
+
+    const ResetPassword = () => {
+        if (!blankValidator(otp)) {
+            setotpError(true)
+            return
+        }
+        if (!blankValidator(password)) {
+            setpasswordError(true)
+            return
+        }
+        if (password.length !== 6) {
+            setpasswordlengthError(true)
+            return
+        }
     }
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -54,7 +75,9 @@ const ForgotPassword = (props) => {
                                     setotp(e.target.value)
                                 }}
                             />
-
+                            {otpError &&
+                                <span className="text-danger float-left">Enter The Email OTP</span>
+                            }
                         </div>
 
                         <div className="mt-2">
@@ -64,6 +87,8 @@ const ForgotPassword = (props) => {
                                     placeholder="Password"
                                     value={password}
                                     onChange={(e) => {
+                                        setpasswordError(false);
+                                        setpasswordlengthError(false);
                                         setpassword(e.target.value)
                                     }}
                                     type={showPassword ? "text" : "password"}
@@ -82,6 +107,12 @@ const ForgotPassword = (props) => {
                                 />
 
                             </FormControl>
+                            {passwordError && (
+                                <span className="text-danger float-left">Enter the Password</span>
+                            )}
+                            {passwordlengthError && (
+                                <span className="text-danger float-left">Password length must be exactly 6 digits</span>
+                            )}
                         </div>
 
                         <div className="inputfiledformatting mt-3">
@@ -100,6 +131,7 @@ const ForgotPassword = (props) => {
                 </Card>
 
             </div>
+            <Loder loading={isloading} />
         </>
     );
 };
