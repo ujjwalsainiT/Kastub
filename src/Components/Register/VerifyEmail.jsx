@@ -6,27 +6,58 @@ import "./Register.css";
 //login,register,resetpassword uses material ui text-feild
 import { Button, Card, TextField } from "@material-ui/core";
 import { withRouter } from "react-router";
-import { blankValidator, emailValidator } from "../../utils/Validation.jsx";
 
+//for backend call
+import axios from "axios";
+import { getBaseUrl } from "../../utils";
+import { blankValidator, emailValidator, showNotificationMsz } from "../../utils/Validation";
+import Loder from "../Loder/Loder.jsx"
 
 const VerifyEmail = (props) => {
 
     const [email, setemail] = useState("");
+    const [isloading, setisloading] = useState(false)
 
     //errors
     const [emailError, setemailError] = useState(false)
     const [emailMatchError, setemailMatchError] = useState(false)
 
-    const ResetPassword = () => {
-        if (!blankValidator(email)) {
-            setemailError(true)
-            return;
+    const EmailVerify = () => {
+        try {
+            if (!blankValidator(email)) {
+                setemailError(true)
+                return;
+            }
+            if (!emailValidator(email)) {
+                setemailMatchError(true)
+                return;
+            }
+            setisloading(true)
+            let url = getBaseUrl() + "email-send";
+            let temp = {
+                email,
+            };
+            axios
+                .post(url, temp)
+                .then(
+                    (res) => {
+                        setisloading(false)
+                        showNotificationMsz(res.data.msg, "success")
+                        props.history.push("/forgot-password", { email: email })
+                        setemail("");
+
+                    },
+                    (error) => {
+                        setisloading(false)
+                        showNotificationMsz(error, "danger")
+                    }
+                )
+        } catch (error) {
+            setisloading(false)
+            showNotificationMsz(error, "danger")
         }
-        if (!emailValidator(email)) {
-            setemailMatchError(true)
-            return;
-        }
-        props.history.push("/forgot-password", { email: email })
+
+
     }
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -65,7 +96,7 @@ const VerifyEmail = (props) => {
                             <Button
                                 variant="contained"
                                 className="Home_page_button login_register_width"
-                                onClick={ResetPassword}
+                                onClick={EmailVerify}
                             >
                                 Verify
                             </Button>
@@ -77,6 +108,7 @@ const VerifyEmail = (props) => {
                 </Card>
 
             </div>
+            <Loder loading={isloading} />
         </>
     );
 };
