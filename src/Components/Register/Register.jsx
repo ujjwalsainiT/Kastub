@@ -33,6 +33,7 @@ const Register = (props) => {
     const [emailMatchError, setemailMatchError] = useState(false);
     const [phoneError, setphoneError] = useState(false);
     const [passwordError, setpasswordError] = useState(false);
+    const [passwordLengthError, setpasswordLengthError] = useState(false)
 
     const RegisterUser = () => {
         try {
@@ -56,7 +57,10 @@ const Register = (props) => {
                 setpasswordError(true);
                 return;
             }
-
+            if (password.length >= 6) {
+                setpasswordLengthError(true);
+                return;
+            }
             setisloading(true)
             let url = getBaseUrl() + "register";
             let temp = {
@@ -71,8 +75,16 @@ const Register = (props) => {
                     (res) => {
                         console.log("data response:::", res)
                         setisloading(false)
-                        showNotificationMsz(res.data.msg, "success")
-                        //props.history.push("/user-details")
+                        if (res.data.user.successCode === 0) {
+                            showNotificationMsz(res.data.msg, "success")
+                            console.log("id:::", res.data.user._id)
+                            localStorage.setItem("UserId", res.data.user._id);
+                            props.history.push("/user-details")
+
+                        } else {
+                            showNotificationMsz(res.data.msg, "danger")
+                            return
+                        }
                     },
 
                     (error) => {
@@ -190,6 +202,9 @@ const Register = (props) => {
                             </FormControl>
                             {passwordError && (
                                 <span className="text-danger float-left">Enter the Password</span>
+                            )}
+                            {passwordLengthError && (
+                                <span className="text-danger float-left">Password minimum 6 digits</span>
                             )}
                         </div>
 

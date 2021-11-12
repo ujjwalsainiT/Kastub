@@ -48,7 +48,7 @@ const HeaderAfterLogin = (props) => {
                         if (!blankValidator(response)) {
                             return;
                         } else {
-                            response.data.response.map(
+                            response.data.map(
                                 (data) => {
                                     setUserName(data.full_name);
                                     setemail(data.email);

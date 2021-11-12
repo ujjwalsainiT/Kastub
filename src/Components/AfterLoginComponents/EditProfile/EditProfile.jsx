@@ -49,17 +49,19 @@ function EditProfile(props) {
                 let url = getBaseUrl() + `getUserDetail/${id}`
                 axios.get(url).then(
                     (response) => {
+                        console.log("user data::", response)
                         if (!blankValidator(response)) {
                             return;
                         } else {
-                            response.data.response.map(
+                            response.data.map(
                                 (data) => {
                                     setfullname(data.full_name);
                                     setemail(data.email);
                                     setphone(data.phonno)
-                                    if (data.image !== null) {
-                                        setshowimage(data.image)
-                                    }
+                                    if(data.image === null){
+                                        setshowimage("https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png")
+                                    }else
+                                    setshowimage(data.image)
                                 }
                             );
 
