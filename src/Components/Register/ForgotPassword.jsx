@@ -4,28 +4,23 @@ import HOC from "../../Common/HOC.jsx";
 import "./Register.css";
 
 //login,register,resetpassword uses material ui text-feild
-import { Button, Card, TextField } from "@material-ui/core";
+import { Button, Card, TextField, IconButton, OutlinedInput, InputAdornment, FormControl } from "@material-ui/core";
 import { withRouter } from "react-router";
-import { blankValidator, emailValidator } from "../../utils/Validation.jsx";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
+
 
 
 const ForgotPassword = (props) => {
+    console.log("email::::", props)
 
-    const [email, setemail] = useState("");
+    let email = props.location.state.email
 
-    //errors
-    const [emailError, setemailError] = useState(false)
-    const [emailMatchError, setemailMatchError] = useState(false)
-
+    const [showPassword, setshowPassword] = useState(false);
+    const [otp, setotp] = useState("")
+    const [password, setpassword] = useState("")
+    
     const ResetPassword = () => {
-        if (!blankValidator(email)) {
-            setemailError(true)
-            return;
-        }
-        if (!emailValidator(email)) {
-            setemailMatchError(true)
-            return;
-        }
+
     }
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -45,20 +40,49 @@ const ForgotPassword = (props) => {
                                 variant="outlined"
                                 autoComplete="off"
                                 value={email}
+                            />
+
+                        </div>
+                        <div className="mt-2">
+                            <TextField
+                                placeholder="Email OTP"
+                                id="outlined-basic"
+                                variant="outlined"
+                                autoComplete="off"
+                                value={otp}
                                 onChange={(e) => {
-                                    setemailError(false);
-                                    setemailMatchError(false);
-                                    setemail(e.target.value)
+                                    setotp(e.target.value)
                                 }}
                             />
-                            {emailError && (
-                                <span className="text-danger float-left mt-1 mb-1">Enter the Email Address</span>
-                            )}
-                            {emailMatchError && (
-                                <span className="text-danger float-left mt-1 mb-1">Enter the Correct Email Address</span>
-                            )}
+
                         </div>
 
+                        <div className="mt-2">
+                            <FormControl className="MuiFormControl-fullWidth" variant="outlined">
+                                <OutlinedInput
+                                    id="outlined-adornment-password"
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={(e) => {
+                                        setpassword(e.target.value)
+                                    }}
+                                    type={showPassword ? "text" : "password"}
+                                    autoComplete="off"
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={() => setshowPassword(!showPassword)}
+                                                onMouseDown={(event) => event.preventDefault()}
+                                            >
+                                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                />
+
+                            </FormControl>
+                        </div>
 
                         <div className="inputfiledformatting mt-3">
                             <Button
@@ -70,7 +94,7 @@ const ForgotPassword = (props) => {
                             </Button>
 
                         </div>
-                        <div className="mt-3 mb-3"><span className="Login_in" onClick={() => props.history.goBack()}>Cancel</span></div>
+
 
                     </div>
                 </Card>

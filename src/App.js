@@ -17,7 +17,6 @@ import PropertiesDetail from "./Components/AfterLoginComponents/UserProperties/P
 import ForgotPassword from "./Components/Register/ForgotPassword";
 import Message from "./Components/Backadmin/Message/Message";
 
-
 //Admin Pannel
 import AdminLogin from "./Components/Backadmin/AdminLogin/AdminLogin";
 
@@ -29,6 +28,7 @@ import Adminfirst from "./Components/Backadmin/Adminfirst/Adminfirst";
 import ClientDetails from "./Components/Backadmin/client/ClientDetails";
 import ComposeEmail from "./Components/AfterLoginComponents/ComposeEmail/ComposeEmail";
 import Financials from "./Components/Backadmin/Financials/Financials";
+import VerifyEmail from "./Components/Register/VerifyEmail";
 
 function App() {
   return (
@@ -51,9 +51,9 @@ function App() {
         <Route exact path="/edit-profile" component={EditProfile} />
         <Route exact path="/user-data" component={UserDataTabs} />
         <Route exact path="/property-detail" component={PropertiesDetail} />
+        <Route exact path="/verify-email" component={VerifyEmail} />
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route exact path="/compose-email" component={ComposeEmail} />
-
 
         {/* Admin Pages*/}
         <Route exact path="/backadmin" component={AdminLogin} />

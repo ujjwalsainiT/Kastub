@@ -164,7 +164,7 @@ const LoginIn = (props) => {
 
                 <Card className="pt-2 pb-2 Card_shadow mt-2">
                     <div>I don't have an account, <span className="Login_in" onClick={() => props.history.push("/register")}>Register</span></div>
-                    <span className="Login_in" onClick={() => props.history.push("/forgot-password")}>forgot Password?</span>
+                    <span className="Login_in" onClick={() => props.history.push("/verify-email")}>forgot Password?</span>
                 </Card>
             </div>
 
