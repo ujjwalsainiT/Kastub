@@ -76,12 +76,12 @@ const HeaderAfterLogin = (props) => {
                     <div className="header_link_color"><strong>LOGO</strong></div>
                     <div className="header_grow" />
                     <div className="header_links">
-                        <span className="header_link_color" onClick={() => props.history.push("/home")}>Home</span>
+                        {/* <span className="header_link_color" onClick={() => props.history.push("/home")}>Home</span>
                         <span className="header_link_color" onClick={() => props.history.push("/features")}>Features</span>
                         <span className="header_link_color" onClick={() => props.history.push("/support")}>Supports</span>
                         <span className="header_link_color" onClick={() => props.history.push("/about-us")}>About Us</span>
                         <span className="header_link_color" onClick={() => props.history.push("/resources")}>Resources</span>
-                        <span className="header_link_color" onClick={() => props.history.push("/contact-us")}>Contact Us</span>
+                        <span className="header_link_color" onClick={() => props.history.push("/contact-us")}>Contact Us</span> */}
                         <span className="header_link_color">
                             <div className="dropdown">
                                 <span><span className="user_image p-2 mr-2">{UserName.substring(0, 2)}</span>My Account</span>
@@ -132,7 +132,7 @@ const HeaderAfterLogin = (props) => {
                                 <div>{email}</div>
                             </span>
                             <hr />
-                            <span className="logout_Pointer_cursor" onClick={() => props.history.push("/home")}>
+                            {/* <span className="logout_Pointer_cursor" onClick={() => props.history.push("/home")}>
                                 Home
                             </span>
                             <span className="logout_Pointer_cursor" onClick={() => props.history.push("/features")}>
@@ -149,7 +149,7 @@ const HeaderAfterLogin = (props) => {
                             </span>
                             <span className="logout_Pointer_cursor" onClick={() => props.history.push("/contact-us")}>
                                 Contact Us
-                            </span>
+                            </span> */}
 
                             <span className="logout_Pointer_cursor" onClick={() => props.history.push("/edit-profile", {
                                 UserName,

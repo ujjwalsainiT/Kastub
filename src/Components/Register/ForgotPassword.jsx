@@ -30,17 +30,44 @@ const ForgotPassword = (props) => {
     const [passwordlengthError, setpasswordlengthError] = useState(false)
 
     const ResetPassword = () => {
-        if (!blankValidator(otp)) {
-            setotpError(true)
-            return
-        }
-        if (!blankValidator(password)) {
-            setpasswordError(true)
-            return
-        }
-        if (password.length !== 6) {
-            setpasswordlengthError(true)
-            return
+
+
+        try {
+            if (!blankValidator(otp)) {
+                setotpError(true)
+                return
+            }
+            if (!blankValidator(password)) {
+                setpasswordError(true)
+                return
+            }
+            if (password.length !== 6) {
+                setpasswordlengthError(true)
+                return
+            }
+            setisloading(true)
+            let url = getBaseUrl() + "change-password";
+            let temp = {
+                email,
+                code: otp,
+                password
+            };
+            axios
+                .post(url, temp)
+                .then(
+                    (res) => {
+                        setisloading(false)
+                        showNotificationMsz(res.data.msg, "success")
+                        props.history.push("/login")
+                    },
+                    (error) => {
+                        setisloading(false)
+                        showNotificationMsz(error, "danger")
+                    }
+                )
+        } catch (error) {
+            setisloading(false)
+            showNotificationMsz(error, "danger")
         }
     }
     useEffect(() => {
